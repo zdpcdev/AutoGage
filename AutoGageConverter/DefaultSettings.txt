@@ -1,0 +1,73 @@
+PART,VALID_PART,POCKET_HOLES,Process,SWITCH_DIMS,REVERSE_SCRIBES
+3X3 LEG,False,False,Default,False,False
+Arched Top Rail,True,False,Default,False,False
+ARCHTK Arched Toe Kick,True,False,Default,False,False
+Bevel 45 Furn Toe,True,False,Default,False,False
+Board,True,False,Default,False,False
+Box Filler,False,False,Default,False,False
+BR-,True,True,Default,False,False
+BR_NPH,True,False,Default,False,False
+BR-FFR Bottom Rail,True,True,Default,False,False
+BR-FFR Bottom Rail (No Dado),True,False,Default,False,False
+Door SI,False,False,Default,False,False
+Door Slab,False,False,Default,False,False
+Extended Bottom,True,False,Default,False,False
+Face Frame,False,False,Default,False,False
+Filler,True,False,Default,False,False
+Flat Panel Top,False,False,Default,False,False
+FRNTK Furniture Toe Kick,True,False,Default,False,False
+Invalid Part,False,False,Default,False,False
+LS-,True,False,Default,False,False
+LS- FFR Left Stile FinEdge,True,False,Default,False,False
+LS-FFR Left Stile FinEdge (M 1),True,False,Default,False,False
+LS-FFR Left Stile FinEdge (M 2),True,False,Default,False,False
+LS-FFR Left Stile FinEdge (M 3),True,False,Default,False,False
+LS_NPH,True,False,Default,False,False
+LS-FFR Left Stile,True,False,Default,False,False
+LS-FFR Left Stile (M 1),True,False,Default,False,False
+LS-FFR Left Stile (M 2),True,False,Default,False,False
+LS-FFR Left Stile (M 3),True,False,Default,False,False
+LS-FFR Left Stile (M 4),True,False,Default,False,False
+LS-FFR Left Stile (M 5),True,False,Default,False,False
+LS-FFR Left Stile (No Dado),True,False,Default,False,False
+Mitered Stock -,False,False,Default,False,False
+MR-,True,True,Default,False,False
+MR-FFR Mid Rail,True,True,Default,False,False
+MR-FFR Mid Rail (No Dado),True,False,Default,False,False
+MS-,True,True,Default,False,False
+MS_NPH,True,False,Default,False,False
+MS-FFR Mid Stile,True,True,Default,False,False
+Pocket Door Filler,False,False,Default,False,False
+Raised Panel Arched Top,False,False,Default,False,False
+Raised Panel Bottom,False,False,Default,False,False
+Raised Panel Center,False,False,Default,False,False
+Raised Panel Top,False,False,Default,False,False
+RB-Door,True,False,Default,False,False
+RM-Door,True,False,Default,False,False
+RS-,True,False,Default,False,True
+RS_NPH,True,False,Default,False,True
+RS-FFR Right Stile,True,False,Default,False,True
+RS-FFR Right Stile (M 1),True,False,Default,False,True
+RS-FFR Right Stile (M 2),True,False,Default,False,True
+RS-FFR Right Stile (M 3),True,False,Default,False,True
+RS-FFR Right Stile (M 4),True,False,Default,False,True
+RS-FFR Right Stile (M 5),True,False,Default,False,True
+RS-FFR Right Stile (No Dato),True,False,Default,False,True
+RS-FFR Right Stile FinEdge,True,False,Default,False,True
+RS-FFR Right Stile FinEdge (M 1),True,False,Default,False,True
+RS-FFR Right Stile FinEdge (M 2),True,False,Default,False,True
+RS-FFR Right Stile FinEdge (M 3),True,False,Default,False,True
+RT-Door,True,False,Default,False,False
+Selection Center Filler,False,False,Default,False,False
+SL-Door,True,False,Default,False,False
+SM-Door,True,False,Default,False,False
+SR-Door,True,False,Default,False,False
+TR-,True,True,Default,False,False
+TR_NPH,True,False,Default,False,False
+TR-FFR Top Rail,True,True,Default,False,False
+TR-FFR Top Rail (No Dato),True,False,Default,False,False
+WHFace,True,False,Default,False,False
+WHFiller,True,False,Default,False,False
+WHShelf,True,False,Default,False,False
+WHSide,True,False,Default,False,False
+Floating Shelf Face,False,False,Default,False,False

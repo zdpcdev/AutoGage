@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AutoGageConverter.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="defaultautoid" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">420000</Value>
+    </Setting>
+    <Setting Name="userautoid" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="profile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default</Value>
+    </Setting>
+    <Setting Name="defaultsettingsfile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DefaultSettings.txt</Value>
+    </Setting>
+    <Setting Name="activesettingsfile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ActiveSettings.txt</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
