@@ -34,13 +34,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E529DC275F18940E61C7D613FDF102A3"
+        "OwnerKey" = "8:_56B0D0415E424B2BACECBDAF6A00585A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_56B0D0415E424B2BACECBDAF6A00585A"
+        "OwnerKey" = "8:_E529DC275F18940E61C7D613FDF102A3"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -61,6 +61,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -77,6 +85,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -214,7 +238,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:AutoGage PLP V7.4.0"
         "ProductCode" = "8:{05969242-2B82-4319-A4FC-AEC744C4B393}"
-        "PackageCode" = "8:{A7E52926-9474-44C1-8BE8-D4225D34CC7B}"
+        "PackageCode" = "8:{C90C2BC9-CD3E-4EC6-A8BC-2EAA93093955}"
         "UpgradeCode" = "8:{F321DEFF-38A3-4ACD-BD94-666948D543D3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -231,7 +255,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_BBB169C698C44C868555D66651ADD06E"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -359,7 +383,7 @@
             "Target" = "8:_56B0D0415E424B2BACECBDAF6A00585A"
             "Folder" = "8:_C96AEFE5583A4ECC93619E05E528E635"
             "WorkingFolder" = "8:_7E9837DCE9F441FB86FDFE9A7068532E"
-            "Icon" = "8:"
+            "Icon" = "8:_BBB169C698C44C868555D66651ADD06E"
             "Feature" = "8:"
             }
         }
