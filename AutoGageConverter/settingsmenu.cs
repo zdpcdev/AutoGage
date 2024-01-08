@@ -11,18 +11,19 @@ using System.Windows.Forms;
 
 namespace AutoGageConverter
 {
-    public partial class settingsmenu : Form
+    public partial class Settingsmenu : Form
     {
 
         public DataTable dt;
         public bool newchanges = false;
         public string reasonforchanges = "USR-";
+        private readonly string userappdatapath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-        public settingsmenu()
+        public Settingsmenu()
         {
             InitializeComponent();
 
-            Fillthesettingseditor(Properties.Settings.Default.activesettingsfile);
+            Fillthesettingseditor(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
             Filltherestorepointselector();
 
             Properties.Settings.Default.Reload();
@@ -32,7 +33,7 @@ namespace AutoGageConverter
         private void Fillthesettingseditor(string filepath)
         {
             changepreview.ReadOnly = true;
-
+            
             string[] settingscontents = File.ReadAllLines(filepath);
             string[] datatypesthatareboxes = { "VALID_PART", "POCKET_HOLES", "SWITCH_DIMS", "REVERSE_SCRIBES" };
 
@@ -142,7 +143,7 @@ namespace AutoGageConverter
         private void Filltherestorepointselector()
         {
             // Fill The ComboBox With The List Of Backups
-            List<String> Configurations = Directory.EnumerateFiles("RestorePoints")
+            List<String> Configurations = Directory.EnumerateFiles(Path.Combine(userappdatapath, "RestorePoints"))
                                       .OrderByDescending(f => File.GetLastWriteTime(f))
                                       .Select(p => Path.GetFileName(p))
                                       .ToList();
@@ -170,9 +171,9 @@ namespace AutoGageConverter
                         sb.AppendLine(string.Join(",", fields));
                     }
                     string filenametimestamp = DateTime.Now.ToString("MMMM-dd-yyyy-hh-mm-ss");
-                    File.WriteAllText(@"RestorePoints\" + reasonforchanges + filenametimestamp + ".txt", sb.ToString());
-                    File.Delete(Properties.Settings.Default.activesettingsfile);
-                    File.Copy(@"RestorePoints\"+ reasonforchanges + filenametimestamp + ".txt", Properties.Settings.Default.activesettingsfile);
+                    File.WriteAllText(Path.Combine(userappdatapath, @"RestorePoints\" + reasonforchanges + filenametimestamp + ".txt"), sb.ToString());
+                    File.Delete(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
+                    File.Copy(Path.Combine(userappdatapath, @"RestorePoints\"+ reasonforchanges + filenametimestamp + ".txt"), Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
 
                     Properties.Settings.Default.profile = reasonforchanges + filenametimestamp;
                     Properties.Settings.Default.Save();
@@ -195,7 +196,7 @@ namespace AutoGageConverter
         private void Restorebtn_Click(object sender, EventArgs e)
         {
             string restoredSettingsPath = @"RestorePoints\" + restorepointselector.SelectedItem.ToString();
-            Fillthesettingseditor(restoredSettingsPath);
+            Fillthesettingseditor(Path.Combine(userappdatapath, restoredSettingsPath));
 
             MessageBox.Show(
                 "Restored Parts from " + restorepointselector.SelectedItem,
@@ -209,7 +210,7 @@ namespace AutoGageConverter
         // Click handler for the Reset Settings to Default button
         private void Resetbtn_Click(object sender, EventArgs e)
         {
-            Fillthesettingseditor("DefaultSettings.txt");
+            Fillthesettingseditor(Path.Combine(userappdatapath, "DefaultSettings.txt"));
             MessageBox.Show(
                 "All Parts Will Be RESET to Default!",
                 "Settings Reset",
@@ -235,7 +236,7 @@ namespace AutoGageConverter
 
             if (window == DialogResult.Yes)
             {
-                string folderPath = "RestorePoints";
+                string folderPath = Path.Combine(userappdatapath, "RestorePoints");
 
                 try
                 {
@@ -296,7 +297,7 @@ namespace AutoGageConverter
             exportSettingsDialog.FileName = "AutoGage740Export-" + DateTime.Now.ToString("MM-dd-yyyy-hh-mm-ss") + ".txt";
             if (exportSettingsDialog.ShowDialog() == DialogResult.OK)
             {
-                File.Copy(Properties.Settings.Default.activesettingsfile, exportSettingsDialog.FileName);
+                File.Copy(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile), Path.Combine(userappdatapath, exportSettingsDialog.FileName));
                 MessageBox.Show("An export file has been saved to \n" + exportSettingsDialog.FileName);
             }
             

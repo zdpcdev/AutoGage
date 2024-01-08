@@ -31,29 +31,29 @@ namespace AutoGageConverter
             dataGridView2.DataSource = dt2;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             DialogResult result = razorgagefolder.ShowDialog();
             if (result == DialogResult.OK)
             {
-                Console.WriteLine(razorgagefolder.SelectedPath);
+                // Console.WriteLine(razorgagefolder.SelectedPath);
                 rglabel.Text = Path.GetFileName(razorgagefolder.SelectedPath);
-                cancompare();
+                Cancompare();
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             DialogResult result = autogagefolder.ShowDialog();
             if (result == DialogResult.OK)
             {
-                Console.WriteLine(autogagefolder.SelectedPath);
+                // Console.WriteLine(autogagefolder.SelectedPath);
                 aglabel.Text = Path.GetFileName(autogagefolder.SelectedPath);
-                cancompare();
+                Cancompare();
             }
         }
 
-        private void cancompare()
+        private void Cancompare()
         {
             if (aglabel.Text != "No folder selected" && rglabel.Text != "No folder selected")
             {
@@ -65,9 +65,8 @@ namespace AutoGageConverter
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Comparebtn_Click(object sender, EventArgs e)
         {
-
             List<string> razorfilenames = new List<string> { };
             List<string> autofilenames = new List<string> { };
 
@@ -95,8 +94,8 @@ namespace AutoGageConverter
                 comparebtn.Enabled = false;
                 for (int i = 0; i < razorfilenames.Count; i++)
                 {
-                    string connectionString1 = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + razorfilenames[i];
-                    string connectionString2 = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + autofilenames[i];
+                    string connectionString1 = Properties.Settings.Default.cs64 + razorfilenames[i];
+                    string connectionString2 = Properties.Settings.Default.cs64 + autofilenames[i];
 
                     using (OleDbConnection connection1 = new OleDbConnection(connectionString1))
                     using (OleDbConnection connection2 = new OleDbConnection(connectionString2))
@@ -143,7 +142,8 @@ namespace AutoGageConverter
 
                 comparebtn.Text = "Compare";
                 comparebtn.Enabled = true;
-            } else
+            }
+            else
             {
                 Console.WriteLine("ERROR");
             }
@@ -164,5 +164,6 @@ namespace AutoGageConverter
             new ComparisionView(passedfile, autogagefolder.SelectedPath, razorgagefolder.SelectedPath).ShowDialog();
             // MessageBox.Show(Path.Combine(autogagefolder.SelectedPath, passedfile));
         }
+
     }
 }

@@ -53,7 +53,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "AutoGage RDB Folder";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // button2
             // 
@@ -65,7 +65,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "RazorGage RDB Folder";
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // instructions
             // 
@@ -87,7 +87,7 @@
             this.comparebtn.TabIndex = 3;
             this.comparebtn.Text = "Compare";
             this.comparebtn.UseVisualStyleBackColor = false;
-            this.comparebtn.Click += new System.EventHandler(this.button3_Click);
+            this.comparebtn.Click += new System.EventHandler(this.Comparebtn_Click);
             // 
             // rglabel
             // 
@@ -139,7 +139,7 @@
             this.dataGridView2.TabIndex = 7;
             this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
             // 
-            // verification
+            // Verification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -153,7 +153,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "verification";
+            this.Name = "Verification";
             this.Text = "Verify AutoGage Output";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

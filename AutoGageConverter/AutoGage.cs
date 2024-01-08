@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace AutoGageConverter
 {
     // AutoGage
-    // Last updated on 01/05/2024
+    // Last updated on 01/08/2024
     // Using RazorGage PLP V7.4.0 as a reference
     // With pocketholes and scribes, but no spaceballs
 
@@ -25,7 +26,7 @@ namespace AutoGageConverter
     // The names of converted files are printed to the audit log
     // Errors are also printed there
     // The converted files are placed in the same directory as the original RZG files
-    // It may not account for any custom fields (user fields, uf_##) you will have to adjust it accordingly
+    // It may not account for any custom fields (user fields, uf_##), you will have to adjust it accordingly
     // There is a built-in diff-checking utility to compare AutoGage output with RazorGage
 
     // When modifiying this program, take a look at your existing RazorGage settings and output.
@@ -33,8 +34,16 @@ namespace AutoGageConverter
     // An rdb file is a mdb file with a different extension
     // The mdb file is an access database using JET 4.0
 
-    // In AutoGage's Properties > Build > Platform Target "Prefer 32-bit" MUST be selected, otherwise the ADO connector will not be found.
-    // There may be a way to fix this if you need to build a 64-bit version
+    // AutoGage has been migrated to 64-Bit.
+    // To switch to 32-Bit, In AutoGage's Properties > Build > Platform Target "Prefer 32-bit" MUST be selected, otherwise the ADO connector will not be found.
+    // Make sure the installer target is also switched over.
+    // Then switch all instances of Properties.Settings.Default.cs64 to .cs32 in this project.
+
+    // You CANNOT test this project directly in Visual Studio
+    // Build the project first, then the installer, then install the app
+
+    // The installer uses files from the AutoGageConverter project in its AppData folder, do not remove them
+
 
     // Official Documentation for RazorGage PLP
     // https://razorgage.com/downloads/
@@ -47,16 +56,20 @@ namespace AutoGageConverter
 
     // PLPDefDefault.mdb
     // This file contains most of the application's default settings.
-    // AutoGage's template file is based off of the "tblPartsFileMapping" table
+    // AutoGage's mapping file is based off of the "tblPartsFileMapping" table
 
     // ManualPartsTemplateDefault.mdb
     // The template used when the user manually creates a parts file
 
     // ROPartsFileDefaultTemplate.mdb
-    // This seems to be an example file of some kind, not used for anything
+    // AutoGage calls it "NewTemplate.mdb"
+    // This file is copied, then filled with data from the RZG file
 
-    // The Access DB connection string is:
+    // The 32-Bit Access DB connection string is:
     // DataSource=.Microsoft.Jet.OLEDB.4.0
+
+    // End of RazorGage PLP Documentation
+
 
 
     // This structure is used to map the CSV file into the correct datatypes
@@ -140,6 +153,9 @@ namespace AutoGageConverter
 
     public partial class AutoGage : Form
     {
+        // User Appdata path
+        private readonly string userappdatapath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
         // The active settings profile gets loaded to this DataTable on start
         public DataTable loadedpartstable = new DataTable();
         // This table is for editing any new parts that are found
@@ -151,16 +167,16 @@ namespace AutoGageConverter
             Properties.Settings.Default.Reload();
 
             // The file names of Default and Active Settings are stored in the app as properties
-            // You can easily change them if you need to
-            if (!File.Exists(Properties.Settings.Default.activesettingsfile))
+            // You can easily change them if needed
+            if (!File.Exists(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile)))
             {
-                File.Copy(Properties.Settings.Default.defaultsettingsfile, Properties.Settings.Default.activesettingsfile);
+                File.Copy(Path.Combine(userappdatapath, Properties.Settings.Default.defaultsettingsfile), Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
                 Properties.Settings.Default.profile = "Default";
             }
 
-            if (!Directory.Exists("RestorePoints"))
+            if (!Directory.Exists(Path.Combine(userappdatapath, "RestorePoints")))
             {
-                Directory.CreateDirectory("RestorePoints");
+                Directory.CreateDirectory(Path.Combine(userappdatapath, "RestorePoints"));
             }
 
             Configurepartstables();
@@ -171,7 +187,7 @@ namespace AutoGageConverter
         public void Configurepartstables()
         {
             // Create the DataGridView that allows the user to preview the currently active settings
-            string[] settingscontents = File.ReadAllLines(Properties.Settings.Default.activesettingsfile);
+            string[] settingscontents = File.ReadAllLines(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
             string[] datatypesthatareboxes = { "VALID_PART", "POCKET_HOLES", "SWITCH_DIMS", "REVERSE_SCRIBES" };
 
             loadedpartstable = new DataTable();
@@ -312,14 +328,15 @@ namespace AutoGageConverter
                 {
                     // New files are created based on a template provided by RazorGage PLP in its app data folder.
                     // By using the copy from RazorGage, we do not need to manually replicate the database format.
-                    File.Copy(@"NewTemplate.mdb", fulldbpath);
+                    File.Copy(Path.Combine(userappdatapath, @"NewTemplate.mdb"), fulldbpath);
 
                     // The name of the table where parts will be inserted
                     string tableName = "tblParts";
 
                     // Create a connection string for the access database
                     // The RazorGage PLP uses the old Jet 4.0 format, this can be found by opening a .rdb file in a hex editor
-                    string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fulldbpath;
+                    // We are using a 64-Bit connection string, you can change this to .cs32 and then adjust the app and installer to target 32-bit if needed.
+                    string connectionString = Properties.Settings.Default.cs64 + fulldbpath;
                     //Console.WriteLine(connectionString);
 
                     // Read the first line of the RZG file to get the column names
@@ -469,7 +486,7 @@ namespace AutoGageConverter
 
                                                 reversedarray[0] = Math.Round(adjustedlength - total, 3).ToString();
                                                 int j = 1;
-                                                for (int k = substrings.Length - 1; k >= 0; k--)
+                                                for (int k = substrings.Length - 1; k >= 1; k--)
                                                 {
                                                     reversedarray[j] = substrings[k];
                                                     j++;
@@ -609,7 +626,7 @@ namespace AutoGageConverter
                 }
                 catch (Exception ex)
                 {
-                    auditlog.Text += "\r\n" + ex.Message;
+                    auditlog.Text += "\r\n" + ex.Message + " Line " + (new StackTrace(ex, true)).GetFrame(0).GetFileLineNumber();
                 }
             }
             else
@@ -629,9 +646,11 @@ namespace AutoGageConverter
                     sb.AppendLine(string.Join(",", fields));
                 }
                 string filenametimestamp = DateTime.Now.ToString("MMMM-dd-yyyy-hh-mm-ss");
-                File.WriteAllText(@"RestorePoints\CVT-" + filenametimestamp + ".txt", sb.ToString());
-                File.Delete(Properties.Settings.Default.activesettingsfile);
-                File.Copy(@"RestorePoints\CVT-" + filenametimestamp + ".txt", Properties.Settings.Default.activesettingsfile);
+                string adjustedsettingsname = Path.Combine(userappdatapath, @"RestorePoints\CVT-" + filenametimestamp + ".txt");
+
+                File.WriteAllText(adjustedsettingsname, sb.ToString());
+                File.Delete(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
+                File.Copy(adjustedsettingsname, Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
 
                 Properties.Settings.Default.profile = "CVT-" + filenametimestamp;
                 Properties.Settings.Default.Save();
@@ -653,7 +672,7 @@ namespace AutoGageConverter
 
         private void Settingsbtn_Click(object sender, EventArgs e)
         {
-            Form sm = new settingsmenu();
+            Form sm = new Settingsmenu();
             sm.ShowDialog();
             Configurepartstables();
             activeProfileLabel.Text = "Active Settings Profile: " + Properties.Settings.Default.profile;

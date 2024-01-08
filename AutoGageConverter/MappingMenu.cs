@@ -17,6 +17,7 @@ namespace AutoGageConverter
     {
         public DataTable importeduserdata = new DataTable();
         public List<MappedField> listofmappings = new List<MappedField>();
+        private readonly string userappdatapath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
      
         public MappingMenu()
         {
@@ -27,7 +28,7 @@ namespace AutoGageConverter
 
             // The ActiveMappings file is simply a 3-Column CSV with a .txt extension.
             // It should only be modified by using the mapping menu
-            string[] lines = File.ReadAllLines("ActiveMappings.txt");
+            string[] lines = File.ReadAllLines(Path.Combine(userappdatapath, "ActiveMappings.txt"));
 
             // Load the list of current mappings to the DataGridView
             foreach (string line in lines)
@@ -43,7 +44,7 @@ namespace AutoGageConverter
                         DisplayedAs = parts[2]
                     };
 
-                    Console.WriteLine(parts[0] + "\t" + parts[1] + "\t" + parts[2]);
+                    // Console.WriteLine(parts[0] + "\t" + parts[1] + "\t" + parts[2]);
 
                     listofmappings.Add(mf);
                 }
@@ -77,7 +78,7 @@ namespace AutoGageConverter
                         else
                         {
                             importeduserdata.Rows.Add(cols[i], "NOT USED");
-                            Console.WriteLine("<" + cols[i] + ">\t");
+                            // Console.WriteLine("<" + cols[i] + ">\t");
                         }
                     }
 
@@ -96,7 +97,7 @@ namespace AutoGageConverter
             string[] lines = listofmappings.Select(mf => $"{mf.IntoThis},{mf.ImportThis},{mf.DisplayedAs}").ToArray();
 
             // Write the array of strings to a file
-            File.WriteAllLines("ActiveMappings.txt", lines);
+            File.WriteAllLines(Path.Combine(userappdatapath, "ActiveMappings.txt"), lines);
         }
 
         private void Labelgridview_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

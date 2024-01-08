@@ -76,5 +76,23 @@ namespace AutoGageConverter.Properties {
                 return ((string)(this["activesettingsfile"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=")]
+        public string cs32 {
+            get {
+                return ((string)(this["cs32"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=")]
+        public string cs64 {
+            get {
+                return ((string)(this["cs64"]));
+            }
+        }
     }
 }

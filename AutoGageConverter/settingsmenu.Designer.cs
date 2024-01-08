@@ -1,6 +1,6 @@
 ﻿namespace AutoGageConverter
 {
-    partial class settingsmenu
+    partial class Settingsmenu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(settingsmenu));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settingsmenu));
             this.label1 = new System.Windows.Forms.Label();
             this.restorepointselector = new System.Windows.Forms.ComboBox();
             this.restorebtn = new System.Windows.Forms.Button();

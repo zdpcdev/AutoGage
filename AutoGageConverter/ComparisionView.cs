@@ -41,7 +41,7 @@ namespace AutoGageConverter
         private void Connectfiletogridview(string pathname, DataGridView viewtoupdate, Label amountlabel, Button openfilebtn)
         {
             // Fill a DataTable and link it to the grid view
-            string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + pathname;
+            string connectionString = Properties.Settings.Default.cs64 + pathname;
             string query = "SELECT * FROM tblParts";
             OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, connectionString);
             DataTable importtable = new DataTable();
