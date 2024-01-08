@@ -215,7 +215,7 @@
             this.aboutInfoText.Name = "aboutInfoText";
             this.aboutInfoText.Size = new System.Drawing.Size(278, 88);
             this.aboutInfoText.TabIndex = 0;
-            this.aboutInfoText.Text = "AutoGage PLP V7.4.0 (01/04/2024)\r\nUses Default Mappings\r\nRazorGage With AutoList\r" +
+            this.aboutInfoText.Text = "AutoGage PLP V7.4.0 (01/08/2024)\r\nUses Default Mappings\r\nRazorGage With AutoList\r" +
     "\nScribes\r\nPocketHoles\r\n";
             // 
             // exportbtn
@@ -237,7 +237,7 @@
             this.exportSettingsDialog.InitialDirectory = "Desktop";
             this.exportSettingsDialog.Title = "Save Parts Critera As";
             // 
-            // settingsmenu
+            // Settingsmenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -252,7 +252,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.resetbtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "settingsmenu";
+            this.Name = "Settingsmenu";
             this.Text = "Modify Parts Criteria";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settingsmenu_FormClosing);
             this.groupBox1.ResumeLayout(false);
