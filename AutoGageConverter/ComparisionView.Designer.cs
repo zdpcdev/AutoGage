@@ -38,6 +38,8 @@
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.agnote = new System.Windows.Forms.Label();
+            this.rgnote = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -118,7 +120,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(289, 31);
+            this.label1.Location = new System.Drawing.Point(289, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 16);
             this.label1.TabIndex = 5;
@@ -128,11 +130,31 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(289, 411);
+            this.label2.Location = new System.Drawing.Point(289, 428);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 16);
             this.label2.TabIndex = 6;
             this.label2.Text = "No File Selected";
+            // 
+            // agnote
+            // 
+            this.agnote.AutoSize = true;
+            this.agnote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.agnote.Location = new System.Drawing.Point(289, 14);
+            this.agnote.Name = "agnote";
+            this.agnote.Size = new System.Drawing.Size(127, 16);
+            this.agnote.TabIndex = 7;
+            this.agnote.Text = "File From AutoGage";
+            // 
+            // rgnote
+            // 
+            this.rgnote.AutoSize = true;
+            this.rgnote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rgnote.Location = new System.Drawing.Point(289, 395);
+            this.rgnote.Name = "rgnote";
+            this.rgnote.Size = new System.Drawing.Size(136, 16);
+            this.rgnote.TabIndex = 8;
+            this.rgnote.Text = "File From RazorGage";
             // 
             // ComparisionView
             // 
@@ -146,6 +168,8 @@
             this.Controls.Add(this.openbtn1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.agnote);
+            this.Controls.Add(this.rgnote);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ComparisionView";
             this.Text = "Compare 2 RDB Files";
@@ -167,5 +191,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label agnote;
+        private System.Windows.Forms.Label rgnote;
     }
 }

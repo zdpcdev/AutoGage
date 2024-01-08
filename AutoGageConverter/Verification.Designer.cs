@@ -46,6 +46,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.LightGreen;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(15, 118);
             this.button1.Name = "button1";
@@ -58,6 +59,7 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.DarkSalmon;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(15, 172);
             this.button2.Name = "button2";
@@ -80,6 +82,7 @@
             // 
             this.comparebtn.BackColor = System.Drawing.Color.SkyBlue;
             this.comparebtn.Enabled = false;
+            this.comparebtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comparebtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comparebtn.Location = new System.Drawing.Point(15, 226);
             this.comparebtn.Name = "comparebtn";
