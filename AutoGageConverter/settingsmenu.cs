@@ -17,20 +17,19 @@ namespace AutoGageConverter
         public DataTable dt;
         public bool newchanges = false;
         public string reasonforchanges = "USR-";
-        private readonly string userappdatapath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         public Settingsmenu()
         {
             InitializeComponent();
 
-            Fillthesettingseditor(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
-            Filltherestorepointselector();
+            FillSettingsDGV(AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile));
+            FillRestorePointSelector();
 
             Properties.Settings.Default.Reload();
         }
 
         // Creates a DataTable and connect it to the DataGridView
-        private void Fillthesettingseditor(string filepath)
+        private void FillSettingsDGV(string filepath)
         {
             changepreview.ReadOnly = true;
             
@@ -140,10 +139,10 @@ namespace AutoGageConverter
         }
 
 
-        private void Filltherestorepointselector()
+        private void FillRestorePointSelector()
         {
             // Fill The ComboBox With The List Of Backups
-            List<String> Configurations = Directory.EnumerateFiles(Path.Combine(userappdatapath, "RestorePoints"))
+            List<String> Configurations = Directory.EnumerateFiles(AppDataHelper.ADH("RestorePoints"))
                                       .OrderByDescending(f => File.GetLastWriteTime(f))
                                       .Select(p => Path.GetFileName(p))
                                       .ToList();
@@ -151,7 +150,7 @@ namespace AutoGageConverter
         }
 
         // Write any data from the gridview into the ActiveSettings.txt file
-        private void Startthesaveprocess()
+        private void StartSaveProcess()
         {
             if(newchanges == true)
             {
@@ -171,14 +170,14 @@ namespace AutoGageConverter
                         sb.AppendLine(string.Join(",", fields));
                     }
                     string filenametimestamp = DateTime.Now.ToString("MMMM-dd-yyyy-hh-mm-ss");
-                    File.WriteAllText(Path.Combine(userappdatapath, @"RestorePoints\" + reasonforchanges + filenametimestamp + ".txt"), sb.ToString());
-                    File.Delete(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
-                    File.Copy(Path.Combine(userappdatapath, @"RestorePoints\"+ reasonforchanges + filenametimestamp + ".txt"), Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
+                    File.WriteAllText(AppDataHelper.ADH(@"RestorePoints\" + reasonforchanges + filenametimestamp + ".txt"), sb.ToString());
+                    File.Delete(AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile));
+                    File.Copy(AppDataHelper.ADH(@"RestorePoints\"+ reasonforchanges + filenametimestamp + ".txt"), AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile));
 
                     Properties.Settings.Default.profile = reasonforchanges + filenametimestamp;
                     Properties.Settings.Default.Save();
 
-                    Filltherestorepointselector();
+                    FillRestorePointSelector();
                 }
                 // Reset the flag so the user is not prompted to save
                 newchanges = false;
@@ -189,14 +188,14 @@ namespace AutoGageConverter
         // Prompt the user to save their changes when closing the form
         private void Settingsmenu_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Startthesaveprocess();
+            StartSaveProcess();
         }
 
         // Click handler for the Restore Previous Settings button
         private void Restorebtn_Click(object sender, EventArgs e)
         {
             string restoredSettingsPath = @"RestorePoints\" + restorepointselector.SelectedItem.ToString();
-            Fillthesettingseditor(Path.Combine(userappdatapath, restoredSettingsPath));
+            FillSettingsDGV(AppDataHelper.ADH(restoredSettingsPath));
 
             MessageBox.Show(
                 "Restored Parts from " + restorepointselector.SelectedItem,
@@ -210,7 +209,7 @@ namespace AutoGageConverter
         // Click handler for the Reset Settings to Default button
         private void Resetbtn_Click(object sender, EventArgs e)
         {
-            Fillthesettingseditor(Path.Combine(userappdatapath, "DefaultSettings.txt"));
+            FillSettingsDGV(AppDataHelper.ADH("DefaultSettings.txt"));
             MessageBox.Show(
                 "All Parts Will Be RESET to Default!",
                 "Settings Reset",
@@ -223,7 +222,7 @@ namespace AutoGageConverter
         // Click handler for the Save and Apply Changes button
         private void Saveandapplybtn_Click(object sender, EventArgs e)
         {
-            Startthesaveprocess();
+            StartSaveProcess();
         }
 
         // Backup deletion process
@@ -236,7 +235,7 @@ namespace AutoGageConverter
 
             if (window == DialogResult.Yes)
             {
-                string folderPath = Path.Combine(userappdatapath, "RestorePoints");
+                string folderPath = AppDataHelper.ADH("RestorePoints");
 
                 try
                 {
@@ -251,7 +250,7 @@ namespace AutoGageConverter
                             File.Delete(file);
                         }
                         //Console.WriteLine("All files in the directory have been deleted.");
-                        Filltherestorepointselector();
+                        FillRestorePointSelector();
                     }
                     
                 }
@@ -293,11 +292,11 @@ namespace AutoGageConverter
 
         private void Exportbtn_Click(object sender, EventArgs e)
         {
-            Startthesaveprocess();
+            StartSaveProcess();
             exportSettingsDialog.FileName = "AutoGage740Export-" + DateTime.Now.ToString("MM-dd-yyyy-hh-mm-ss") + ".txt";
             if (exportSettingsDialog.ShowDialog() == DialogResult.OK)
             {
-                File.Copy(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile), Path.Combine(userappdatapath, exportSettingsDialog.FileName));
+                File.Copy(AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile), AppDataHelper.ADH(exportSettingsDialog.FileName));
                 MessageBox.Show("An export file has been saved to \n" + exportSettingsDialog.FileName);
             }
             

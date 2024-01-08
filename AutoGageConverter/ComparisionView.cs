@@ -34,11 +34,11 @@ namespace AutoGageConverter
             dataGridView1.Scroll += new ScrollEventHandler(DataGridView_Scroll);
             dataGridView2.Scroll += new ScrollEventHandler(DataGridView_Scroll);
 
-            Connectfiletogridview(Path.Combine(autogagefolder, recivedfile), dataGridView1, label1, openbtn1);
-            Connectfiletogridview(Path.Combine(razorgagefolder, recivedfile), dataGridView2, label2, openbtn2);
+            ConnectFileToGridView(Path.Combine(autogagefolder, recivedfile), dataGridView1, label1, openbtn1);
+            ConnectFileToGridView(Path.Combine(razorgagefolder, recivedfile), dataGridView2, label2, openbtn2);
         }
 
-        private void Connectfiletogridview(string pathname, DataGridView viewtoupdate, Label amountlabel, Button openfilebtn)
+        private void ConnectFileToGridView(string pathname, DataGridView viewtoupdate, Label amountlabel, Button openfilebtn)
         {
             // Fill a DataTable and link it to the grid view
             string connectionString = Properties.Settings.Default.cs64 + pathname;
@@ -145,7 +145,7 @@ namespace AutoGageConverter
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                Connectfiletogridview(openFileDialog1.FileName, dataGridView1, label1, openbtn1);
+                ConnectFileToGridView(openFileDialog1.FileName, dataGridView1, label1, openbtn1);
             }
         }
 
@@ -153,7 +153,7 @@ namespace AutoGageConverter
         {
             if (openFileDialog2.ShowDialog() == DialogResult.OK)
             {
-                Connectfiletogridview(openFileDialog2.FileName, dataGridView2, label2, openbtn2);
+                ConnectFileToGridView(openFileDialog2.FileName, dataGridView2, label2, openbtn2);
             }
         }
 

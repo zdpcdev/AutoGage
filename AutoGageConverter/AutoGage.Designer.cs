@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoGage));
             this.label1 = new System.Windows.Forms.Label();
-            this.singlefileconverter = new System.Windows.Forms.Button();
+            this.conversionbtn = new System.Windows.Forms.Button();
             this.ofdSingleFile = new System.Windows.Forms.OpenFileDialog();
             this.activeProfileLabel = new System.Windows.Forms.Label();
             this.auditlabel = new System.Windows.Forms.Label();
@@ -53,22 +53,22 @@
             this.label1.Text = "This program converts RazorGage RZG files to rdb Part files in bulk. You can sele" +
     "ct multiple files at a time, drag and drop is also supported.";
             // 
-            // singlefileconverter
+            // conversionbtn
             // 
-            this.singlefileconverter.AllowDrop = true;
-            this.singlefileconverter.BackColor = System.Drawing.Color.SpringGreen;
-            this.singlefileconverter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.singlefileconverter.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.singlefileconverter.Location = new System.Drawing.Point(25, 72);
-            this.singlefileconverter.Name = "singlefileconverter";
-            this.singlefileconverter.Size = new System.Drawing.Size(175, 60);
-            this.singlefileconverter.TabIndex = 2;
-            this.singlefileconverter.Text = "Convert File(s)";
-            this.singlefileconverter.UseVisualStyleBackColor = false;
-            this.singlefileconverter.Click += new System.EventHandler(this.Singlefileconverter_Click);
-            this.singlefileconverter.DragDrop += new System.Windows.Forms.DragEventHandler(this.Singlefileconverter_DragDrop);
-            this.singlefileconverter.DragEnter += new System.Windows.Forms.DragEventHandler(this.Singlefileconverter_DragEnter);
-            this.singlefileconverter.DragLeave += new System.EventHandler(this.Singlefileconverter_DragLeave);
+            this.conversionbtn.AllowDrop = true;
+            this.conversionbtn.BackColor = System.Drawing.Color.SpringGreen;
+            this.conversionbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.conversionbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.conversionbtn.Location = new System.Drawing.Point(25, 72);
+            this.conversionbtn.Name = "conversionbtn";
+            this.conversionbtn.Size = new System.Drawing.Size(175, 60);
+            this.conversionbtn.TabIndex = 2;
+            this.conversionbtn.Text = "Convert File(s)";
+            this.conversionbtn.UseVisualStyleBackColor = false;
+            this.conversionbtn.Click += new System.EventHandler(this.ConversionBtn_Click);
+            this.conversionbtn.DragDrop += new System.Windows.Forms.DragEventHandler(this.ConversionBtn_DragDrop);
+            this.conversionbtn.DragEnter += new System.Windows.Forms.DragEventHandler(this.ConversionBtn_DragEnter);
+            this.conversionbtn.DragLeave += new System.EventHandler(this.ConversionBtn_DragLeave);
             // 
             // ofdSingleFile
             // 
@@ -190,7 +190,7 @@
             this.Controls.Add(this.settingsbtn);
             this.Controls.Add(this.auditlabel);
             this.Controls.Add(this.activeProfileLabel);
-            this.Controls.Add(this.singlefileconverter);
+            this.Controls.Add(this.conversionbtn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.auditlog);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -204,7 +204,7 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button singlefileconverter;
+        private System.Windows.Forms.Button conversionbtn;
         private System.Windows.Forms.OpenFileDialog ofdSingleFile;
         private System.Windows.Forms.Label activeProfileLabel;
         private System.Windows.Forms.Label auditlabel;

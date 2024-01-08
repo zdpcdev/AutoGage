@@ -122,6 +122,7 @@
       <DependentUpon>AutoGage.cs</DependentUpon>
     </Compile>
     <Compile Include="AppDataHelper.cs" />
+    <Compile Include="RzgConverter.cs" />
     <Compile Include="ComparisionView.cs">
       <SubType>Form</SubType>
     </Compile>

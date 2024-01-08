@@ -38,7 +38,7 @@ namespace AutoGageConverter
             {
                 // Console.WriteLine(razorgagefolder.SelectedPath);
                 rglabel.Text = Path.GetFileName(razorgagefolder.SelectedPath);
-                Cancompare();
+                CanCompare();
             }
         }
 
@@ -49,11 +49,11 @@ namespace AutoGageConverter
             {
                 // Console.WriteLine(autogagefolder.SelectedPath);
                 aglabel.Text = Path.GetFileName(autogagefolder.SelectedPath);
-                Cancompare();
+                CanCompare();
             }
         }
 
-        private void Cancompare()
+        private void CanCompare()
         {
             if (aglabel.Text != "No folder selected" && rglabel.Text != "No folder selected")
             {
@@ -143,22 +143,22 @@ namespace AutoGageConverter
                 comparebtn.Text = "Compare";
                 comparebtn.Enabled = true;
             }
-            else
-            {
-                Console.WriteLine("ERROR");
-            }
+            //else
+            //{
+            //    Console.WriteLine("ERROR");
+            //}
 
-            Console.WriteLine("DONE");
+            //Console.WriteLine("DONE");
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string passedfile = this.dataGridView1.CurrentRow.Cells[0].Value.ToString();
             new ComparisionView(passedfile, autogagefolder.SelectedPath, razorgagefolder.SelectedPath).ShowDialog();
             // MessageBox.Show(Path.Combine(autogagefolder.SelectedPath, passedfile));
         }
 
-        private void dataGridView2_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView2_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string passedfile = this.dataGridView2.CurrentRow.Cells[0].Value.ToString();
             new ComparisionView(passedfile, autogagefolder.SelectedPath, razorgagefolder.SelectedPath).ShowDialog();

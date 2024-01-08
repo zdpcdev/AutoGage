@@ -79,7 +79,7 @@
             this.openbtn1.Name = "openbtn1";
             this.openbtn1.Size = new System.Drawing.Size(240, 49);
             this.openbtn1.TabIndex = 2;
-            this.openbtn1.Text = "Open RDB 1";
+            this.openbtn1.Text = "Open RDB From AutoGage";
             this.openbtn1.UseVisualStyleBackColor = false;
             this.openbtn1.Click += new System.EventHandler(this.Openbtn1_Click);
             // 
@@ -92,7 +92,7 @@
             this.openbtn2.Name = "openbtn2";
             this.openbtn2.Size = new System.Drawing.Size(240, 49);
             this.openbtn2.TabIndex = 3;
-            this.openbtn2.Text = "Open RDB 2";
+            this.openbtn2.Text = "Open RDB From RazorGage";
             this.openbtn2.UseVisualStyleBackColor = false;
             this.openbtn2.Click += new System.EventHandler(this.Openbtn2_Click);
             // 

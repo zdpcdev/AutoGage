@@ -71,90 +71,8 @@ namespace AutoGageConverter
     // End of RazorGage PLP Documentation
 
 
-
-    // This structure is used to map the CSV file into the correct datatypes
-    // If you are using more than 2 user feilds (UF_##), this code must be modified
-    public struct Rzgconverter
-    {
-        public int AutoNumber;
-        public string FILENAME;
-        public int SEQ_NUMBER;
-        public int QUANTITY;
-        public string PART;
-        public string MATERIAL;
-        public double WIDTH;
-        public double LENGTH;
-        public double THICKNESS;
-        public string SCRIBES;
-        public string SPACEBALLS;
-        public bool POCKETHOLES;
-        public bool PANEL;
-        public bool B_GRADE;
-        public string UF_1;
-        public string UF_2;
-        // Extra user fields we don't use
-        //public string UF_3;
-        //public string UF_4;
-        //public string UF_5;
-        //public string UF_6;
-        //public string UF_7;
-        //public string UF_8;
-        //public string UF_9;
-        //public string UF_10;
-        //public string UF_11;
-        //public string UF_12;
-        //public string UF_13;
-        //public string UF_14;
-        //public string UF_15;
-        //public string UF_16;
-        //public string UF_17;
-        //public string UF_18;
-        //public string UF_19;
-        //public string UF_20;
-        public Rzgconverter(int autoNumber, string fileName, int seqNumber, int quantity, string part, string material, double width, double length, double thickness, string scribes, string spaceballs, bool pocketHoles, bool panel, bool bGrade, string uf1, string uf2)
-        {
-            AutoNumber = autoNumber;
-            FILENAME = fileName;
-            SEQ_NUMBER = seqNumber;
-            QUANTITY = quantity;
-            PART = part;
-            MATERIAL = material;
-            WIDTH = width;
-            LENGTH = length;
-            THICKNESS = thickness;
-            SCRIBES = scribes;
-            SPACEBALLS = spaceballs;
-            POCKETHOLES = pocketHoles;
-            PANEL = panel;
-            B_GRADE = bGrade;
-            UF_1 = uf1;
-            UF_2 = uf2;
-            //UF_3 = uf3;
-            //UF_4 = uf4;
-            //UF_5 = uf5;
-            //UF_6 = uf6;
-            //UF_7 = uf7;
-            //UF_8 = uf8;
-            //UF_9 = uf9;
-            //UF_10 = uf10;
-            //UF_11 = uf11;
-            //UF_12 = uf12;
-            //UF_13 = uf13;
-            //UF_14 = uf14;
-            //UF_15 = uf15;
-            //UF_16 = uf16;
-            //UF_17 = uf17;
-            //UF_18 = uf18;
-            //UF_19 = uf19;
-            //UF_20 = uf20;
-        }
-    }
-
-
     public partial class AutoGage : Form
     {
-        // User Appdata path
-        private readonly string userappdatapath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         // The active settings profile gets loaded to this DataTable on start
         public DataTable loadedpartstable = new DataTable();
@@ -168,26 +86,26 @@ namespace AutoGageConverter
 
             // The file names of Default and Active Settings are stored in the app as properties
             // You can easily change them if needed
-            if (!File.Exists(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile)))
+            if (!File.Exists(AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile)))
             {
-                File.Copy(Path.Combine(userappdatapath, Properties.Settings.Default.defaultsettingsfile), Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
+                File.Copy(AppDataHelper.ADH(Properties.Settings.Default.defaultsettingsfile), AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile));
                 Properties.Settings.Default.profile = "Default";
             }
 
-            if (!Directory.Exists(Path.Combine(userappdatapath, "RestorePoints")))
+            if (!Directory.Exists(AppDataHelper.ADH("RestorePoints")))
             {
-                Directory.CreateDirectory(Path.Combine(userappdatapath, "RestorePoints"));
+                Directory.CreateDirectory(AppDataHelper.ADH("RestorePoints"));
             }
 
-            Configurepartstables();
+            ConfigurePartsTables();
 
             activeProfileLabel.Text = "Active Settings Profile: " + Properties.Settings.Default.profile;
         }
 
-        public void Configurepartstables()
+        public void ConfigurePartsTables()
         {
             // Create the DataGridView that allows the user to preview the currently active settings
-            string[] settingscontents = File.ReadAllLines(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
+            string[] settingscontents = File.ReadAllLines(AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile));
             string[] datatypesthatareboxes = { "VALID_PART", "POCKET_HOLES", "SWITCH_DIMS", "REVERSE_SCRIBES" };
 
             loadedpartstable = new DataTable();
@@ -236,38 +154,38 @@ namespace AutoGageConverter
         }
 
         // Click Handler for the file converter
-        private void Singlefileconverter_Click(object sender, EventArgs e)
+        private void ConversionBtn_Click(object sender, EventArgs e)
         {
             DialogResult result = ofdSingleFile.ShowDialog();
             if (result == DialogResult.OK)
             {
-                Startconversionprocess(ofdSingleFile.FileNames);
+                StartConversionProcess(ofdSingleFile.FileNames);
             }
         }
 
         // Update the button text on drag and drop
-        private void Singlefileconverter_DragEnter(object sender, DragEventArgs e)
+        private void ConversionBtn_DragEnter(object sender, DragEventArgs e)
         {
-            singlefileconverter.Text = "Convert " + ((string[])e.Data.GetData(DataFormats.FileDrop)).Where(f => Path.GetExtension(f) == ".RZG").Count() + " file(s)";
+            conversionbtn.Text = "Convert " + ((string[])e.Data.GetData(DataFormats.FileDrop)).Where(f => Path.GetExtension(f) == ".RZG").Count() + " file(s)";
             e.Effect = DragDropEffects.Copy;
         }
 
-        private void Singlefileconverter_DragLeave(object sender, EventArgs e)
+        private void ConversionBtn_DragLeave(object sender, EventArgs e)
         {
-            singlefileconverter.Text = "Convert File(s)";
+            conversionbtn.Text = "Convert File(s)";
         }
 
         // Perform conversion on successful drop
-        private void Singlefileconverter_DragDrop(object sender, DragEventArgs e)
+        private void ConversionBtn_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = ((string[])e.Data.GetData(DataFormats.FileDrop)).Where(f => Path.GetExtension(f) == ".RZG").ToArray();
-            Startconversionprocess(files);
+            StartConversionProcess(files);
         }
 
         // Handle UI management not directly related to the conversion process
-        private void Startconversionprocess(string[] listoffiles)
+        private void StartConversionProcess(string[] listoffiles)
         {
-            Togglecontrols(false, Color.Coral);
+            ToggleControls(false, Color.Coral);
 
             // Progress bar management
             double step = 1.0 / listoffiles.Count() * 100.0;
@@ -278,35 +196,35 @@ namespace AutoGageConverter
             // Conversion
             foreach (string currentfile in listoffiles)
             {
-                Convertfile(currentfile);
+                ConvertRZGFile(currentfile);
                 conversionstatus.PerformStep();
             }
 
             // UI management
-            singlefileconverter.Text = "Convert File(s)";
+            conversionbtn.Text = "Convert File(s)";
             conversionstatus.Visible = false;
 
-            Togglecontrols(true, Color.PaleGreen);
+            ToggleControls(true, Color.PaleGreen);
         }
 
         // Helper function for button appearance
-        private void Togglecontrols(bool status, Color col)
+        private void ToggleControls(bool status, Color col)
         {
-            singlefileconverter.BackColor = col;
-            singlefileconverter.Enabled = status;
+            conversionbtn.BackColor = col;
+            conversionbtn.Enabled = status;
             settingsbtn.Enabled = status;
         }
 
 
         // START OF CONVERSION PROCESS
-        private void Convertfile(string passedfile)
+        private void ConvertRZGFile(string passedfile)
         {
 
             // The sequence number always starts at 1.
             // It increases by 1 for each part in the file, including invalid ones
             int seq = 1;
             // This list will contain all the valid parts after they have been properly formatted.
-            List<Rzgconverter> listofvalidpartstoconvert = new List<Rzgconverter>();
+            List<RzgConverter> listofvalidpartstoconvert = new List<RzgConverter>();
 
 
             // The path of the RZG (CSV) file
@@ -328,7 +246,7 @@ namespace AutoGageConverter
                 {
                     // New files are created based on a template provided by RazorGage PLP in its app data folder.
                     // By using the copy from RazorGage, we do not need to manually replicate the database format.
-                    File.Copy(Path.Combine(userappdatapath, @"NewTemplate.mdb"), fulldbpath);
+                    File.Copy(AppDataHelper.ADH(@"NewTemplate.mdb"), fulldbpath);
 
                     // The name of the table where parts will be inserted
                     string tableName = "tblParts";
@@ -528,7 +446,7 @@ namespace AutoGageConverter
                                     // Every converted part gets added to this list
                                     // After all parts have been converted, they are added to the rdb file in a single loop
                                     listofvalidpartstoconvert.Add(
-                                        new Rzgconverter(
+                                        new RzgConverter(
                                             /* int AutoNumber;    */    Properties.Settings.Default.defaultautoid + Properties.Settings.Default.userautoid,
                                             /* string FILENAME;   */    rzgfilename.Replace(".RZG", ""),
                                             /* int SEQ_NUMBER;    */    seq,
@@ -571,7 +489,7 @@ namespace AutoGageConverter
                             command.Connection = connection;
 
                             // For every part converted, insert it into the database
-                            foreach (Rzgconverter item in listofvalidpartstoconvert)
+                            foreach (RzgConverter item in listofvalidpartstoconvert)
                             {
                                 // Create a query
                                 command.CommandText = $"INSERT INTO {tableName} (AutoIDNum, FILENAME, SEQ_NUM, QUANTITY, PART, MATERIAL, WIDTH, LENGTH, THICKNESS, SCRIBES, SPACEBALLS, POCKETHOLES, PANEL, B_GRADE, UF_1, UF_2) VALUES (@AutoIDNum, @FILENAME, @SEQ_NUM, @QUANTITY, @PART, @MATERIAL, @WIDTH, @LENGTH, @THICKNESS, @SCRIBES, @SPACEBALLS, @POCKETHOLES, @PANEL, @B_GRADE, @UF_1, @UF_2)";
@@ -646,11 +564,11 @@ namespace AutoGageConverter
                     sb.AppendLine(string.Join(",", fields));
                 }
                 string filenametimestamp = DateTime.Now.ToString("MMMM-dd-yyyy-hh-mm-ss");
-                string adjustedsettingsname = Path.Combine(userappdatapath, @"RestorePoints\CVT-" + filenametimestamp + ".txt");
+                string adjustedsettingsname = AppDataHelper.ADH(@"RestorePoints\CVT-" + filenametimestamp + ".txt");
 
                 File.WriteAllText(adjustedsettingsname, sb.ToString());
-                File.Delete(Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
-                File.Copy(adjustedsettingsname, Path.Combine(userappdatapath, Properties.Settings.Default.activesettingsfile));
+                File.Delete(AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile));
+                File.Copy(adjustedsettingsname, AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile));
 
                 Properties.Settings.Default.profile = "CVT-" + filenametimestamp;
                 Properties.Settings.Default.Save();
@@ -674,7 +592,7 @@ namespace AutoGageConverter
         {
             Form sm = new Settingsmenu();
             sm.ShowDialog();
-            Configurepartstables();
+            ConfigurePartsTables();
             activeProfileLabel.Text = "Active Settings Profile: " + Properties.Settings.Default.profile;
         }
 

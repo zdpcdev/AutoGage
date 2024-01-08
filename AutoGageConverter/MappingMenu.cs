@@ -17,7 +17,6 @@ namespace AutoGageConverter
     {
         public DataTable importeduserdata = new DataTable();
         public List<MappedField> listofmappings = new List<MappedField>();
-        private readonly string userappdatapath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
      
         public MappingMenu()
         {
@@ -28,7 +27,7 @@ namespace AutoGageConverter
 
             // The ActiveMappings file is simply a 3-Column CSV with a .txt extension.
             // It should only be modified by using the mapping menu
-            string[] lines = File.ReadAllLines(Path.Combine(userappdatapath, "ActiveMappings.txt"));
+            string[] lines = File.ReadAllLines(AppDataHelper.ADH("ActiveMappings.txt"));
 
             // Load the list of current mappings to the DataGridView
             foreach (string line in lines)
@@ -97,7 +96,7 @@ namespace AutoGageConverter
             string[] lines = listofmappings.Select(mf => $"{mf.IntoThis},{mf.ImportThis},{mf.DisplayedAs}").ToArray();
 
             // Write the array of strings to a file
-            File.WriteAllLines(Path.Combine(userappdatapath, "ActiveMappings.txt"), lines);
+            File.WriteAllLines(AppDataHelper.ADH("ActiveMappings.txt"), lines);
         }
 
         private void Labelgridview_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
