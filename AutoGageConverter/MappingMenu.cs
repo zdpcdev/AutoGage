@@ -27,6 +27,10 @@ namespace AutoGageConverter
 
             // The ActiveMappings file is simply a 3-Column CSV with a .txt extension.
             // It should only be modified by using the mapping menu
+            if (!File.Exists(AppDataHelper.ADH("ActiveMappings.txt")))
+            {
+                File.Copy("ActiveMappings.txt", AppDataHelper.ADH("ActiveMappings.txt"));
+            }
             string[] lines = File.ReadAllLines(AppDataHelper.ADH("ActiveMappings.txt"));
 
             // Load the list of current mappings to the DataGridView

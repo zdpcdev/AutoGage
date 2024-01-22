@@ -9,9 +9,14 @@ namespace AutoGageConverter
 {
     public static class AppDataHelper
     {
+        public static string AD(string defaultadf)
+        {
+            return (Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), defaultadf));
+        }
         public static string ADH(string pathtoappend)
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), pathtoappend);
+            string combo = Path.Combine("AutoGage", pathtoappend);
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), combo);
         }
     }
 }

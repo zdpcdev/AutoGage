@@ -84,12 +84,22 @@ namespace AutoGageConverter
             InitializeComponent();
             Properties.Settings.Default.Reload();
 
+            if (!Directory.Exists(AppDataHelper.AD("AutoGage")))
+            {
+                Directory.CreateDirectory(AppDataHelper.AD("AutoGage"));
+            }
+
             // The file names of Default and Active Settings are stored in the app as properties
             // You can easily change them if needed
             if (!File.Exists(AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile)))
             {
-                File.Copy(AppDataHelper.ADH(Properties.Settings.Default.defaultsettingsfile), AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile));
+                File.Copy(Properties.Settings.Default.defaultsettingsfile, AppDataHelper.ADH(Properties.Settings.Default.activesettingsfile));
                 Properties.Settings.Default.profile = "Default";
+            }
+
+            if (!File.Exists(AppDataHelper.ADH("NewTemplate.mdb")))
+            {
+                File.Copy("NewTemplate.mdb", AppDataHelper.ADH("NewTemplate.mdb"));
             }
 
             if (!Directory.Exists(AppDataHelper.ADH("RestorePoints")))
